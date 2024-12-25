@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0c1445;
+            color: white;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #b0b0b0;
+        }
+
+        .balance-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            background-color: #1c224a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .balance-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .balance-item h3 {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #b0b0b0;
+        }
+
+        .balance-item p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .button {
+            flex: 1;
+            margin: 0 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .deposit-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .withdraw-btn {
+            background-color: #5551cc;
+            color: white;
+            border: none;
+        }
+
+        .welcome {
+            margin: 20px 0;
+        }
+
+        .welcome h3 {
+            font-size: 18px;
+            color: #b0b0b0;
+        }
+
+        .welcome p {
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+
+        .more-functions {
+            margin-top: 20px;
+        }
+
+        .more-functions h3 {
+            margin-bottom: 10px;
+        }
+
+        .function-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .function-item {
+            background-color: #1c224a;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .function-item:hover {
+            background-color: #2c335a;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background-color: #1c224a;
+            padding: 10px 0;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .nav a img {
+            width: 24px;
+            height: 24px;
+            display: block;
+            margin: 0 auto 5px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Form -->
+    <div id="loginForm" class="container">
+        <h1>Welcome to Investment Game</h1>
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button class="btn" onclick="loginUser()">Login</button>
+        <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+    </div>
+
+    <!-- Sign-Up Form -->
+    <div id="signUpForm" class="container" style="display: none;">
+        <h1>Sign Up</h1>
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="signUpEmail" placeholder="Email" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        <input type="text" id="invitationCode" placeholder="Invitation Code (Optional)">
+        <input type="password" id="signUpPassword" placeholder="Password" required>
+        <button class="btn" onclick="signUpUser()">Sign Up</button>
+        <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+
+    <!-- Home Screen -->
+    <div id="homeScreen" class="container" style="display: none;">
+        <h1>AIG</h1>
+        <p><strong>User ID:</strong> <span id="userID">Loading...</span></p>
+
+        <!-- Referral Button -->
+        <button class="button" style="background-color: #4caf50; width: 100%;" onclick="generateReferralLink()">Invite Friends</button>
+
+        <!-- Balance Section -->
+        <div class="balance-section">
+            <div class="balance-item">
+                <h3>₹ Current Balance</h3>
+                <p id="balance">Loading...</p>
+            </div>
+            <div class="balance-item">
+                <h3>₹ Withdraw Balance</h3>
+                <p>₹ 0</p>
+            </div>
+        </div>
+
+        <!-- Other UI Sections -->
+        <div class="buttons">
+            <button class="button deposit-btn">Deposit</button>
+            <button class="button withdraw-btn">Withdraw</button>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="nav">
+        <!-- Same navigation links as before -->
+    </div>
+
+    <script>
+        // Mock Firebase Auth Initialization
+        const user = { id: "2907574" }; // Example user ID for demo purposes
+
+        function loginUser() {
+            // Login logic here
+            showHome();
+        }
+
+        function signUpUser() {
+            // Sign-up logic here
+            alert("Signed up successfully!");
+        }
+
+        function showSignUp() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signUpForm').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('signUpForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function showHome() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signUpForm').style.display = 'none';
+            document.getElementById('homeScreen').style.display = 'block';
+
+            // Display user ID
+            document.getElementById('userID').innerText = user.id;
+        }
+
+        function generateReferralLink() {
+            const referralLink = `https://xyz.com/${user.id}`;
+            navigator.clipboard.writeText(referralLink).then(() => {
+                alert(`Referral link copied: ${referralLink}`);
+            });
+        }
+
+        // Auto-fill invitation code from URL
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const invitationCode = urlParams.get('ref');
+            if (invitationCode) {
+                showSignUp();
+                document.getElementById('invitationCode').value = invitationCode;
+            }
+        };
+    </script>
+</body>
+
+</html>

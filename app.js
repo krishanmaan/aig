@@ -48,32 +48,67 @@ function signUpUser() {
     const invitationCode = document.getElementById("invitationCode").value;
     const password = document.getElementById("signUpPassword").value;
 
+    if (phone.length < 10) {
+        alert("Invalid phone number. Please provide a valid phone number.");
+        return;
+    }
+
+  
+
+
+    const phoneSuffix = phone.slice(-4); // Last 4 digits of the phone number
+
     auth.createUserWithEmailAndPassword(email, password).then(userCredential => {
         const userId = userCredential.user.uid;
         const userRef = database.ref('users/' + userId);
-        const randomID = Math.floor(10000000 + Math.random() * 90000000);
 
-        userRef.set({
-            name,
-            email,
-            phone,
-            userID: randomID,
-            balance: 0
-        });
-
-        if (invitationCode) {
-            database.ref('users').orderByChild('userID').equalTo(parseInt(invitationCode)).once('value').then(snapshot => {
-                if (snapshot.exists()) {
-                    const inviterKey = Object.keys(snapshot.val())[0];
-                    const inviterRef = database.ref('users/' + inviterKey + '/balance');
-                    inviterRef.transaction(balance => (balance || 0) + 10);
-                }
+        // Generate a unique ID
+        generateUniqueID(phoneSuffix).then(randomID => {
+            userRef.set({
+                name,
+                email,
+                phone,
+                invitationCode,
+                userID: randomID,
+                balance: 0
             });
-        }
 
-        alert("Sign-Up Successful!");
-        showLogin();
+            if (invitationCode) {
+                database.ref('users').orderByChild('userID').equalTo(parseInt(invitationCode)).once('value').then(snapshot => {
+                    if (snapshot.exists()) {
+                        const inviterKey = Object.keys(snapshot.val())[0];
+                        const inviterRef = database.ref('users/' + inviterKey + '/balance');
+                        inviterRef.transaction(balance => (balance || 0) + 10);
+                    }
+                });
+            }
+
+            alert("Sign-Up Successful!");
+            showLogin();
+        }).catch(error => alert("Error generating unique ID: " + error.message));
     }).catch(error => alert(error.message));
+}
+
+function generateUniqueID(phoneSuffix) {
+    return new Promise((resolve, reject) => {
+        const randomFourDigits = () => Math.floor(1000 + Math.random() * 9000); // Generate 4 random digits
+        const checkIDUniqueness = id => database.ref('users').orderByChild('userID').equalTo(id).once('value');
+
+        const tryGenerateID = () => {
+            const randomID = parseInt(phoneSuffix + randomFourDigits());
+            checkIDUniqueness(randomID).then(snapshot => {
+                if (snapshot.exists()) {
+                    // ID is not unique; retry
+                    tryGenerateID();
+                } else {
+                    // ID is unique
+                    resolve(randomID);
+                }
+            }).catch(reject);
+        };
+
+        tryGenerateID();
+    });
 }
 
 function showHomeScreen(userData) {

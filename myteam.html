@@ -5,45 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Team</title>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold text-center mb-6">My Team</h1>
-        <div id="teamList" class="bg-white p-4 rounded shadow-md">
-            <h2 class="text-lg font-semibold mb-4">Users Joined Using My Invitation Code</h2>
-            <ul id="teamMembers" class="list-disc ml-4"></ul>
-        </div>
-    </div>
+<body>
+    <h1>My Team</h1>
+    <ul id="teamList">
+        <!-- Team members will be dynamically added here -->
+    </ul>
+    <button onclick="fetchTeamData()">Refresh Team</button>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <script src="/app.js"></script>
     <script>
-        const auth = firebase.auth();
-        const database = firebase.database();
-
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                const userID = JSON.parse(localStorage.getItem("user")).userID;
-                database.ref('users').orderByChild('invitedBy').equalTo(userID).once('value')
-                    .then(snapshot => {
-                        const teamMembers = document.getElementById('teamMembers');
-                        teamMembers.innerHTML = '';
-                        snapshot.forEach(childSnapshot => {
-                            const member = childSnapshot.val();
-                            const li = document.createElement('li');
-                            li.textContent = `${member.name} (${member.email})`;
-                            teamMembers.appendChild(li);
-                        });
-                    });
-            } else {
-                window.location = "index.html";
+        function fetchTeamData() {
+            const userData = JSON.parse(localStorage.getItem("user")); // Get current user data
+            if (!userData) {
+                alert("Please log in first.");
+                return;
             }
-        });
+
+            const userId = userData.userID;
+
+            // Fetch team data from Firebase
+            database.ref('users').orderByChild('userID').equalTo(userId).once('value').then(snapshot => {
+                if (snapshot.exists()) {
+                    const userKey = Object.keys(snapshot.val())[0]; // Get the user's database key
+                    const teamRef = database.ref('users/' + userKey + '/team');
+
+                    teamRef.once('value').then(teamSnapshot => {
+                        const teamData = teamSnapshot.val();
+
+                        // Display the team data on the page
+                        const teamList = document.getElementById("teamList"); // Assuming you have a UL or DIV with ID 'teamList'
+                        teamList.innerHTML = ""; // Clear existing content
+
+                        if (teamData) {
+                            Object.values(teamData).forEach(member => {
+                                const listItem = document.createElement("li");
+                                listItem.textContent = `Name: ${member.name}, UserID: ${member.userID}`;
+                                teamList.appendChild(listItem);
+                            });
+                        } else {
+                            teamList.textContent = "No team members yet.";
+                        }
+                    });
+                }
+            }).catch(error => alert("Error fetching team data: " + error.message));
+        }
+
     </script>
+    <script src="app.js"></script>
+
 </body>
 
 </html>

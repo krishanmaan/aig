@@ -5,237 +5,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIG</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #0c1445;
-            color: white;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            width: 85%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin: auto;
-        }
-
-        input {
-            display: block;
-            width: 100%;
-            margin: 10px auto;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .btn {
-            display: block;
-            margin: 15px auto;
-            padding: 12px;
-            font-size: 18px;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        h1,
-        h2,
-        h3 {
-            margin: 5px 0;
-        }
-
-        h1 {
-            font-size: 28px;
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-top: 10px;
-            color: #b0b0b0;
-        }
-
-        h3 {
-            font-size: 16px;
-            color: #b0b0b0;
-        }
-
-        .balance-section {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background-color: #1c224a;
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .balance-item {
-            text-align: center;
-        }
-
-        .balance-item h3 {
-            margin: 5px 0;
-            font-size: 16px;
-            color: #b0b0b0;
-        }
-
-        .balance-item p {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .button {
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .deposit-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-        }
-
-        .withdraw-btn {
-            background-color: #5551cc;
-            color: white;
-            border: none;
-        }
-
-        .welcome {
-            margin: 20px 0;
-        }
-
-        .welcome p {
-            font-size: 14px;
-            color: #b0b0b0;
-        }
-
-        .more-functions {
-            margin-top: 20px;
-            padding-bottom: 60px;
-            /* Bottom navigation bar को जगह देने के लिए */
-        }
-
-        .function-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
-
-        .function-item {
-            background-color: #1c224a;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .function-item:hover {
-            background-color: #2c335a;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div id="loginForm" class="container">
-        <h1>Welcome to AIG</h1>
-        <h2>Login</h2>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button class="btn" onclick="loginUser()">Login</button>
-        <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+<body class="bg-gray-100 font-sans">
+
+    <div id="loginForm" class="container mx-auto max-w-md p-6 bg-white shadow-md rounded-md mt-10">
+        <h1 class="text-2xl font-bold text-center mb-4">Welcome to AIG</h1>
+        <h2 class="text-xl font-semibold text-center mb-6">Login</h2>
+        <input type="email" id="email" placeholder="Email" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="password" id="password" placeholder="Password" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button class="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            onclick="loginUser()">Login</button>
+        <p class="text-center mt-4">Don't have an account? <a href="#" onclick="showSignUp()"
+                class="text-blue-500 underline">Sign Up</a></p>
     </div>
 
-    <div id="signUpForm" class="container" style="display: none;">
-        <h1>Sign Up</h1>
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="email" id="signUpEmail" placeholder="Email" required>
-        <input type="tel" id="phone" placeholder="Phone Number" required>
-        <input type="text" id="invitationCode" placeholder="Invitation Code (Optional)">
-        <input type="password" id="signUpPassword" placeholder="Password" required>
-        <button class="btn" onclick="signUpUser()">Sign Up</button>
-        <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    <div id="signUpForm" class="container mx-auto max-w-md p-6 bg-white shadow-md rounded-md mt-10 hidden">
+        <h1 class="text-2xl font-bold text-center mb-4">Sign Up</h1>
+        <input type="text" id="name" placeholder="Full Name" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="email" id="signUpEmail" placeholder="Email" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="tel" id="phone" placeholder="Phone Number" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="text" id="invitationCode" placeholder="Invitation Code (Optional)"
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="password" id="signUpPassword" placeholder="Password" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button class="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onclick="signUpUser()">Sign
+            Up</button>
+        <p class="text-center mt-4">Already have an account? <a href="#" onclick="showLogin()"
+                class="text-blue-500 underline">Login</a></p>
     </div>
 
-    <div id="homeScreen" class="container" style="display: none;">
-        <h1>AIG</h1>
-        <p><strong>User ID:</strong> <span id="userID">Loading...</span></p>
-
-        <div class="balance-section">
-            <div class="balance-item">
-                <h3>₹ Current Balance</h3>
-                <p id="balance">Loading...</p>
-            </div>
-
-            <div class="balance-item">
-                <h3>₹ Withdraw Balance</h3>
-                <p>₹ 0</p>
+    <div id="homeScreen" class="min-h-screen bg-blue-900 text-white flex flex-col items-center">
+        <!-- Header -->
+        <div class="w-full p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold ">Qualcomm</h1>
+           
+            <div class="bg-gray-700 p-2 rounded-full">
+                <i class="fas fa-headphones-alt text-white"></i>
             </div>
         </div>
 
-        <div class="buttons">
-            <button class="button deposit-btn">Deposit</button>
-            <button class="button withdraw-btn">Withdraw</button>
-        </div>
-
-        <div class="welcome">
-            <h3>Welcome to AIG</h3>
-            <p>We make intelligent computing ubiquitous.</p>
-        </div>
-
-        <button class="button" style="background-color: #00bcd4; width: 100%;">See More</button>
-
-        <div class="more-functions">
-            <h3>More Functions</h3>
-            <div class="function-grid">
-                <div class="function-item">VIP Club</div>
-                <div class="function-item">My Task</div>
-                <div class="function-item">My Cards</div>
-                <div class="function-item">My Team</div>
-                <div class="function-item">Invite Friends</div>
-                <div class="function-item">Exchange</div>
+        <!-- User Info -->
+        <div class="text-center">
+            
+            <p class="text-sm" ><strong>User ID:</strong> <span id="userID">Loading...</span></p>
+            <div class="flex justify-center gap-8 mt-4">
+                <div>
+                    <h3 class="text-sm "> Current Balance</h3>
+                    <p class="text-lg font-bold" ><strong>₹</strong> <span id="balance">Loading...</span></p>
+                </div>
+                <div>
+                    <h3 class="text-sm ">₹ Withdraw Balance</h3>
+                    <p class="text-lg font-bold">₹ 0</p>
+                </div>
             </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="mt-6  gap-4 text-center">
+            <button class="bg-white text-blue-900 font-bold py-2 px-4 rounded-full">
+                Deposit
+            </button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Withdraw
+            </button>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="mt-6 text-center">
+            <h3 class="text-lg font-bold">Welcome to Qualcomm</h3>
+            <p class="text-sm">We make intelligent computing ubiquitous.</p>
+            <button
+                class="bg-transparent border border-cyan-500 text-cyan-500 mt-4 px-6 py-2 rounded-full hover:bg-cyan-500 hover:text-blue-900 transition">
+                SEE MORE
+            </button>
+        </div>
+
+        <!-- More Functions -->
+        <div class="w-full mt-10">
+            <h3 class="text-center text-lg font-bold mb-4">More Functions</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">VIP Club</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">My Task</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">My Cards</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">My Team</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">Invite Friends</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">Exchange</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar -->
+        <div
+            class="fixed bottom-0 left-0 w-full bg-white flex justify-around items-center py-2 text-blue-900 shadow-md">
+            <a href="#" class="flex flex-col items-center text-center">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-center">
+                <i class="fas fa-coins text-xl"></i>
+                <span class="text-xs">Invest</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-center">
+                <i class="fas fa-bullhorn text-xl"></i>
+                <span class="text-xs">Affiche</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-center">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-xs">Account</span>
+            </a>
         </div>
     </div>
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
     <div id="navbar"></div>
     <script src="/fileload.js"></script>
-
-
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
     <script src="/app.js"></script>
 
 </body>

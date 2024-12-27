@@ -88,6 +88,7 @@ function showHomeScreen(userData) {
 function showLogin() {
     localStorage.removeItem("user");
     document.getElementById("homeScreen").style.display = "none";
+    document.getElementById("navbar").style.display = "none";
     document.getElementById("signUpForm").style.display = "none";
     document.getElementById("loginForm").style.display = "block";
 }

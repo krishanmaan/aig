@@ -4,3 +4,5 @@ fetch('nav.html')
                 document.getElementById('navbar').innerHTML = data;
             })
             .catch(error => console.error('Error loading navbar:', error));
+
+

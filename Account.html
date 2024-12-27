@@ -5,139 +5,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #0c1445;
-            color: white;
-        }
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        .container {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .profile {
-            margin-top: 20px;
-        }
-
-        .profile h1 {
-            font-size: 24px;
-            color: #00bcd4;
-        }
-
-        .profile p {
-            margin: 5px 0;
-            color: #ccc;
-        }
-
-        .download {
-            margin: 20px 0;
-        }
-
-        .download button {
-            background-color: #00bcd4;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .download button:hover {
-            background-color: #0097a7;
-        }
-
-        .purchase-record {
-            background-color: #112263;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .purchase-record h3 {
-            margin-bottom: 10px;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-around;
-            color: #00bcd4;
-            font-size: 16px;
-        }
-
-        .tabs div {
-            cursor: pointer;
-        }
-
-        .record-links {
-            margin: 20px 0;
-            text-align: left;
-            font-size: 18px;
-        }
-
-        .record-links a {
-            color: #00bcd4;
-            text-decoration: none;
-            display: block;
-            margin: 10px 0;
-        }
-
-        .nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            background-color: #112263;
-            padding: 10px 0;
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .nav a img {
-            width: 24px;
-            height: 24px;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="profile">
-            <h1 id="name">Jaat</h1>
-            <p>ID: <span id="userID">2907574</span></p>
+    <div class="min-h-screen bg-blue-900 text-white flex flex-col items-center p-4">
+        <!-- Profile Section -->
+        <div class="text-center mb-6">
+            <h1 id="name" class="text-2xl font-bold">Jaat</h1>
+            <p class="text-sm">
+                ID: <span id="userID" class="font-medium">2907574</span>
+            </p>
         </div>
 
-        <div class="download">
-            <p>Download Our App</p>
-            <button>DOWNLOAD APP</button>
+        <!-- Download Section -->
+        <div class="bg-blue-800 text-center p-4 rounded-lg shadow-md w-full max-w-sm mb-6">
+            <p class="mb-4 text-sm font-medium">Download Our App</p>
+            <button
+                class="bg-white text-blue-900 font-bold py-2 px-6 rounded-full hover:bg-blue-700 hover:text-white transition">
+                DOWNLOAD APP
+            </button>
         </div>
 
-        <div class="purchase-record">
-            <h3>Purchase Record</h3>
-            <div class="tabs">
-                <div>Chip</div>
-                <div>Qualcomm</div>
-                <div>Surprise</div>
+        <!-- Purchase Record Section -->
+        <div class="w-full max-w-md bg-blue-800 rounded-lg shadow-md p-4 mb-6">
+            <h3 class="text-lg font-bold text-center mb-4">Purchase Record</h3>
+            <div class="grid grid-cols-3 gap-2">
+                <div class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Chip
+                </div>
+                <div class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Qualcomm
+                </div>
+                <div class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Surprise
+                </div>
             </div>
         </div>
 
-        <div class="record-links">
-            <a href="#">Deposit Records</a>
-            <a href="#">Withdraw Records</a>
-            <a href="#">Earnings Records</a>
-            <a href="#">Reward Records</a>
-            <a href="#">My Commission</a>
+        <!-- Record Links Section -->
+        <div class="w-full max-w-md bg-blue-800 rounded-lg shadow-md p-4">
+            <h3 class="text-lg font-bold text-center mb-4">Records</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <a href="#" class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Deposit Records
+                </a>
+                <a href="#" class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Withdraw Records
+                </a>
+                <a href="#" class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Earnings Records
+                </a>
+                <a href="#" class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+                    Reward Records
+                </a>
+                <a href="#"
+                    class="text-center bg-blue-700 py-2 rounded-lg shadow hover:bg-blue-600 transition col-span-2">
+                    My Commission
+                </a>
+            </div>
         </div>
     </div>
+
 
     <div id="navbar"></div>
     <script src="/fileload.js"></script>

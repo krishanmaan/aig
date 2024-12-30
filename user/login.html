@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            user-select: none;
+            /* Disable text selection */
+            -webkit-user-select: none;
+            /* For Safari/Chrome */
+            -moz-user-select: none;
+            /* For Firefox */
+            -ms-user-select: none;
+            /* For Internet Explorer/Edge */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div id="loginForm" class="container mx-auto max-w-md p-6 bg-white shadow-md rounded-md mt-10">
+        <h1 class="text-2xl font-bold text-center mb-4">Welcome to AIG</h1>
+        <h2 class="text-xl font-semibold text-center mb-6">Login</h2>
+        <input type="email" id="email" placeholder="Email" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="password" id="password" placeholder="Password" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button class="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            onclick="loginUser()">Login</button>
+        <p class="text-center mt-4">Don't have an account?
+            <a href="./SignUp.html" class="text-blue-500 underline">SignUp</a>
+        </p>
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+   
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="/app.js"></script>
+</body>
+
+</html>

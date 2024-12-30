@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIG</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            user-select: none;
+            /* Disable text selection */
+            -webkit-user-select: none;
+            /* For Safari/Chrome */
+            -moz-user-select: none;
+            /* For Firefox */
+            -ms-user-select: none;
+            /* For Internet Explorer/Edge */
+        }
+    </style>
+</head>
+
+<body class="bg-blue-900 flex items-center justify-center h-screen font-sans">
+
+  
+  
+
+    <div id="homeScreen" class="min-h-screen bg-blue-900 text-white flex flex-col items-center">
+        <!-- Header -->
+        <div class="w-full p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold ">Qualcomm</h1>
+
+            <div class="bg-gray-700 p-2 rounded-full">
+                <i class="fas fa-headphones-alt text-white"></i>
+            </div>
+        </div>
+        <div class="hidden" >
+           
+            <!-- <p><strong>User ID:</strong> <span id="userID"></span></p> -->
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <!-- <p><strong>Balance:</strong> ₹<span id="balance"></span></p> -->
+        </div>
+        <!-- User Info -->
+        <div class="text-center">
+
+            <p class="text-sm"><strong>User ID:</strong> <span id="userID">Loading...</span></p>
+            <div class="flex justify-center gap-8 mt-4">
+                <div>
+                    <h3 class="text-sm "> Current Balance</h3>
+                    <p class="text-lg font-bold"><strong>₹</strong> <span id="balance">Loading...</span></p>
+                </div>
+                <div>
+                    <h3 class="text-sm ">₹ Withdraw Balance</h3>
+                    <p class="text-lg font-bold">₹ 0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="mt-6  gap-4 text-center">
+            <button class="bg-white text-blue-900 font-bold py-2 px-4 rounded-full">
+                Deposit
+            </button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Withdraw
+            </button>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="mt-6 text-center">
+            <h3 class="text-lg font-bold">Welcome to Qualcomm</h3>
+            <p class="text-sm">We make intelligent computing ubiquitous.</p>
+            <button
+                class="bg-transparent border border-cyan-500 text-cyan-500 mt-4 px-6 py-2 rounded-full hover:bg-cyan-500 hover:text-blue-900 transition">
+                SEE MORE
+            </button>
+        </div>
+
+        <!-- More Functions -->
+        <div class="w-full   rounded-lg shadow-md p-4 text-center">
+            <h3 class="text-lg font-bold text-center mb-4">More Functions</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">VIP Club</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">My Task</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">My Cards</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">My Team</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">Invite Friends</p>
+                </div>
+                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
+                    <p class="font-bold">Exchange</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+    <div id="navbar"></div>
+    <script src="/fileload.js"></script>
+    <script src="/app.js"></script>
+    
+
+</body>
+
+</html>

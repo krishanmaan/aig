@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            user-select: none;
+            /* Disable text selection */
+            -webkit-user-select: none;
+            /* For Safari/Chrome */
+            -moz-user-select: none;
+            /* For Firefox */
+            -ms-user-select: none;
+            /* For Internet Explorer/Edge */
+        }
+    </style>
+</head>
+<body>
+    <div id="homeScreen">
+        <h2>Home Screen</h2>
+        <!-- <p><strong>User ID:</strong> <span id="userID"></span></p> -->
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <!-- <p><strong>Balance:</strong> ₹<span id="balance"></span></p> -->
+    </div>
+    <!-- <div class="text-center">
+
+       
+        <p><strong>Balance:</strong> ₹<span id="balance"></span></p>
+       
+    </div> -->
+    <div class="text-center">
+
+        <p class="text-sm"><strong>User ID:</strong> <span id="userID">Loading...</span></p>
+        <div class="flex justify-center gap-8 mt-4">
+            <div>
+                <h3 class="text-sm "> Current Balance</h3>
+                <p class="text-lg font-bold"><strong>₹</strong> <span id="balance">Loading...</span></p>
+            </div>
+            <div>
+                <h3 class="text-sm ">₹ Withdraw Balance</h3>
+                <p class="text-lg font-bold">₹ 0</p>
+            </div>
+        </div>
+    </div>
+<script src="app.js"></script>
+</body>
+</html>

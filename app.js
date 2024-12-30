@@ -16,30 +16,33 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
+
+
 // Event listener to check localStorage for user data when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-    const userData = JSON.parse(localStorage.getItem("user")); // Retrieve user data from localStorage
+    const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
-        showHomeScreen(userData); // If user data exists, display the home screen
+        showHomeScreen(userData);
     }
 });
 
 // Listener to monitor authentication state changes (e.g., login or logout)
 auth.onAuthStateChanged(user => {
     if (user) {
-        // If user is logged in, fetch user data from Firebase Realtime Database
         database.ref('users/' + user.uid).once('value').then(snapshot => {
             const userData = snapshot.val();
             if (userData) {
-                localStorage.setItem("user", JSON.stringify(userData)); // Save user data to localStorage
-                showHomeScreen(userData); // Display the home screen with user data
+                localStorage.setItem("user", JSON.stringify(userData));
+                showHomeScreen(userData);
+            } else {
+                console.error("No user data found.");
             }
-        });
+        }).catch(error => console.error("Error fetching user data:", error));
     } else {
-        // If no user is logged in, show the login screen
-        showLogin();
+        document.getElementById("loginForm").style.display = "block";
     }
 });
+
 
 // Function to log in a user with email and password
 function loginUser() {
@@ -48,7 +51,11 @@ function loginUser() {
 
     // Attempt to sign in the user using Firebase Authentication
     auth.signInWithEmailAndPassword(email, password)
-        .catch(error => alert(error.message)); // Show error message if login fails
+        .then(userCredential => {
+            localStorage.setItem("user", JSON.stringify(userCredential.user));
+            window.location.href = "/home.html";
+        })
+        .catch(error => alert(error.message));
 }
 
 // Function to sign up a new user with required details
@@ -106,7 +113,10 @@ function signUpUser() {
             }
 
             alert("Sign-Up Successful!");
-            showLogin(); // Show login screen after successful sign-up
+
+            localStorage.setItem("user", JSON.stringify(userCredential.user));
+            window.location.href = "/home.html";
+
         }).catch(error => alert("Error generating unique ID: " + error.message));
     }).catch(error => alert(error.message));
 }
@@ -137,25 +147,11 @@ function generateUniqueID(phoneSuffix) {
 
 // Function to display the home screen with user data
 function showHomeScreen(userData) {
-    document.getElementById("userID").textContent = userData.userID; // Display user ID
-    document.getElementById("name").textContent = userData.name; // Display user name
-    document.getElementById("balance").textContent = userData.balance || 0; // Display user balance
-    document.getElementById("loginForm").style.display = "none"; // Hide login form
-    document.getElementById("signUpForm").style.display = "none"; // Hide sign-up form
-    document.getElementById("homeScreen").style.display = "block"; // Show home screen
+    console.log("Displaying user data:", userData);
+    document.getElementById("userID").textContent = userData.userID || "N/A";
+    document.getElementById("name").textContent = userData.name || "Guest";
+    document.getElementById("balance").textContent = userData.balance !== undefined ? userData.balance : "0";
 }
 
-// Function to show the login screen
-function showLogin() {
-    localStorage.removeItem("user"); // Clear user data from localStorage
-    document.getElementById("homeScreen").style.display = "none"; // Hide home screen
-    document.getElementById("navbar").style.display = "none"; // Hide navigation bar
-    document.getElementById("signUpForm").style.display = "none"; // Hide sign-up form
-    document.getElementById("loginForm").style.display = "block"; // Show login form
-}
 
-// Function to show the sign-up screen
-function showSignUp() {
-    document.getElementById("loginForm").style.display = "none"; // Hide login form
-    document.getElementById("signUpForm").style.display = "block"; // Show sign-up form
-}
+

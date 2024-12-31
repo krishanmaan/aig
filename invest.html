@@ -6,7 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invest | American Communications Network, Inc.</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
+
+    <style>
+        body {
+            user-select: none;
+            /* Disable text selection */
+            -webkit-user-select: none;
+            /* For Safari/Chrome */
+            -moz-user-select: none;
+            /* For Firefox */
+            -ms-user-select: none;
+            /* For Internet Explorer/Edge */
+        }
+
+        #qr-code {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        #qr-code .bg-white {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
     
 </head>
 
@@ -71,6 +104,48 @@
 
     <div id="navbar"></div>
     <script src="/fileload.js"></script>
+    <script>
+        document.querySelectorAll('.investment-card button').forEach(button => {
+            button.addEventListener('click', function () {
+                const card = this.closest('.investment-card');
+                const investAmount = card.querySelector('.investment-amount').textContent.split('₹')[1].trim();
+
+                // Generate UPI link
+                const upiLink = `upi://pay?pa=krishankumarmaan400-1@okaxis&pn=Krishan%20Maan&am=${investAmount}&cu=INR&aid=uGICAgIDr-L2POA`;
+
+                // Create a QR code container
+                const qrContainer = document.createElement('div');
+                qrContainer.id = 'qr-code';
+                qrContainer.classList = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-70';
+                qrContainer.innerHTML = `
+                    <div class="bg-white p-6 rounded-lg text-center">
+                        <h2 class="text-lg font-bold mb-4">Scan QR Code to Pay</h2>
+                        <canvas id="qr-code-image" class="mb-4"></canvas>
+                        <input type="text" id="utr" placeholder="Enter UTR Number" required
+            class=" p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="bg-green-600 text-white py-2 px-4 rounded-lg" id="close-qr">verify</button>
+                    </div>
+                `;
+
+                document.body.appendChild(qrContainer);
+
+                // Generate QR code
+                const qrCanvas = document.getElementById('qr-code-image');
+                QRCode.toCanvas(qrCanvas, upiLink, { width: 200, margin: 2 }, function (error) {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        console.log("QR code generated successfully.");
+                    }
+                });
+
+                // Close QR code popup
+                document.getElementById('close-qr').addEventListener('click', function () {
+                    qrContainer.remove();
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

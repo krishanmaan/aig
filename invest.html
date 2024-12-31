@@ -4,170 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invest</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            background-color: #0c1445;
-            color: white;
-        }
+    <title>Invest | American Communications Network, Inc.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        .container {
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-            color: #00bcd4;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background-color: #1c254b;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .tab.active {
-            background-color: #00bcd4;
-            color: #fff;
-        }
-
-        .investment-card {
-            background-color: #1c254b;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .investment-card img {
-            width: 100%;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .investment-details {
-            text-align: left;
-        }
-
-        .investment-details h3 {
-            font-size: 18px;
-            margin: 0 0 10px;
-            color: #00bcd4;
-        }
-
-        .investment-details p {
-            margin: 5px 0;
-        }
-
-        .investment-amount {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 10px 0;
-            color: #ffeb3b;
-        }
-
-        .invest-btn {
-            background-color: #00bcd4;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-
-        .invest-btn:hover {
-            background-color: #0097a7;
-        }
-
-        .nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            background-color: #1c254b;
-            padding: 10px 0;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        .nav img {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 5px;
-        }
-    </style>
+    
 </head>
 
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Hot Investment</h1>
+<body class="bg-blue-900 flex items-center justify-center  mx-2">
+    <div class="container  pb-20 pt-5">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-white">Hot Investment</h1>
         </div>
-
-        <div class="tabs">
-            <div class="tab active">Chip</div>
-            <div class="tab">Qualcomm</div>
-            <div class="tab">Surprise</div>
-        </div>
-
-        <div class="investment-card">
-            <img src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
-            <div class="investment-details">
-                <h3>Mobile-1 (0/30)</h3>
-                <p>Day Income: ₹392</p>
-                <p>Earnings Days: 50 Days</p>
-                <p>Total Income: ₹19600</p>
-                <div class="investment-amount">Invest Amount: ₹980.00</div>
-                <button class="invest-btn">Invest Now</button>
+    
+        
+    
+        <div class="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Investment Card 1 -->
+            <div class="investment-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <img class="w-full h-40 object-cover" src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-gray-800">Mobile-1 (0/30)</h3>
+                    <p class="text-sm text-gray-600">Day Income: ₹392</p>
+                    <p class="text-sm text-gray-600">Earnings Days: 50 Days</p>
+                    <p class="text-sm text-gray-600">Total Income: ₹19600</p>
+                    <div class="investment-amount text-sm text-blue-800 font-semibold my-2">Invest Amount: ₹980.00</div>
+                    <button
+                        class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                        Invest Now
+                    </button>
+                </div>
             </div>
-        </div>
-
-        <div class="investment-card">
-            <img src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
-            <div class="investment-details">
-                <h3>Mobile-2 (0/30)</h3>
-                <p>Day Income: ₹831.6</p>
-                <p>Earnings Days: 50 Days</p>
-                <p>Total Income: ₹41580</p>
-                <div class="investment-amount">Invest Amount: ₹1980.00</div>
-                <button class="invest-btn">Invest Now</button>
+    
+            <!-- Investment Card 2 -->
+            <div class="investment-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <img class="w-full h-40 object-cover" src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-gray-800">Mobile-2 (0/30)</h3>
+                    <p class="text-sm text-gray-600">Day Income: ₹831.6</p>
+                    <p class="text-sm text-gray-600">Earnings Days: 50 Days</p>
+                    <p class="text-sm text-gray-600">Total Income: ₹41580</p>
+                    <div class="investment-amount text-sm text-blue-800 font-semibold my-2">Invest Amount: ₹1980.00</div>
+                    <button
+                        class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                        Invest Now
+                    </button>
+                </div>
             </div>
-        </div>
-
-        <div class="investment-card">
-            <img src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
-            <div class="investment-details">
-                <h3>Laptops-1 (0/30)</h3>
-                <p>Day Income: ₹2392</p>
-                <p>Earnings Days: 49 Days</p>
-                <p>Total Income: ₹117208</p>
-                <div class="investment-amount">Invest Amount: ₹5980.00</div>
-                <button class="invest-btn">Invest Now</button>
+    
+            <!-- Investment Card 3 -->
+            <div class="investment-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <img class="w-full h-40 object-cover" src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-gray-800">Laptops-1 (0/30)</h3>
+                    <p class="text-sm text-gray-600">Day Income: ₹2392</p>
+                    <p class="text-sm text-gray-600">Earnings Days: 49 Days</p>
+                    <p class="text-sm text-gray-600">Total Income: ₹117208</p>
+                    <div class="investment-amount text-sm text-blue-800 font-semibold my-2">Invest Amount: ₹5980.00</div>
+                    <button
+                        class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                        Invest Now
+                    </button>
+                </div>
             </div>
         </div>
     </div>

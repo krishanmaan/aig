@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIG</title>
+    <title>HOME | American Communications Network, Inc.</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
             user-select: none;
@@ -23,22 +25,22 @@
     </style>
 </head>
 
-<body class="bg-blue-900 flex items-center justify-center h-screen font-sans">
+<body class="bg-blue-900 flex items-center justify-center  font-sans">
 
-  
-  
 
-    <div id="homeScreen" class="min-h-screen bg-blue-900 text-white flex flex-col items-center">
+
+
+    <div id="homeScreen" class="h-screen bg-blue-900 text-white flex flex-col items-center ">
         <!-- Header -->
         <div class="w-full p-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold ">Qualcomm</h1>
+            <h1 class="text-xl font-bold ">ACN</h1>
 
             <div class="bg-gray-700 p-2 rounded-full">
                 <i class="fas fa-headphones-alt text-white"></i>
             </div>
         </div>
-        <div class="hidden" >
-           
+        <div class="hidden">
+
             <!-- <p><strong>User ID:</strong> <span id="userID"></span></p> -->
             <p><strong>Name:</strong> <span id="name"></span></p>
             <!-- <p><strong>Balance:</strong> ₹<span id="balance"></span></p> -->
@@ -71,7 +73,7 @@
 
         <!-- Welcome Message -->
         <div class="mt-6 text-center">
-            <h3 class="text-lg font-bold">Welcome to Qualcomm</h3>
+            <h3 class="text-lg font-bold">Welcome to American Communications Network, Inc.</h3>
             <p class="text-sm">We make intelligent computing ubiquitous.</p>
             <button
                 class="bg-transparent border border-cyan-500 text-cyan-500 mt-4 px-6 py-2 rounded-full hover:bg-cyan-500 hover:text-blue-900 transition">
@@ -79,30 +81,66 @@
             </button>
         </div>
 
-        <!-- More Functions -->
-        <div class="w-full   rounded-lg shadow-md p-4 text-center">
-            <h3 class="text-lg font-bold text-center mb-4">More Functions</h3>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
-                    <p class="font-bold">VIP Club</p>
+        <!-- investment-card -->
+
+        <div class="container mx-auto p-4 pb-20">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold text-white">Hot Investment</h1>
+            </div>
+        
+            
+        
+            <div class="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Investment Card 1 -->
+                <div class="investment-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img class="w-full h-40 object-cover" src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-800">Mobile-1 (0/30)</h3>
+                        <p class="text-sm text-gray-600">Day Income: ₹392</p>
+                        <p class="text-sm text-gray-600">Earnings Days: 50 Days</p>
+                        <p class="text-sm text-gray-600">Total Income: ₹19600</p>
+                        <div class="investment-amount text-sm text-blue-800 font-semibold my-2">Invest Amount: ₹980.00</div>
+                        <button
+                            class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                            Invest Now
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
-                    <p class="font-bold">My Task</p>
+        
+                <!-- Investment Card 2 -->
+                <div class="investment-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img class="w-full h-40 object-cover" src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-800">Mobile-2 (0/30)</h3>
+                        <p class="text-sm text-gray-600">Day Income: ₹831.6</p>
+                        <p class="text-sm text-gray-600">Earnings Days: 50 Days</p>
+                        <p class="text-sm text-gray-600">Total Income: ₹41580</p>
+                        <div class="investment-amount text-sm text-blue-800 font-semibold my-2">Invest Amount: ₹1980.00</div>
+                        <button
+                            class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                            Invest Now
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
-                    <p class="font-bold">My Cards</p>
-                </div>
-                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
-                    <p class="font-bold">My Team</p>
-                </div>
-                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
-                    <p class="font-bold">Invite Friends</p>
-                </div>
-                <div class="bg-blue-800 p-4 text-center rounded-lg shadow-md">
-                    <p class="font-bold">Exchange</p>
+        
+                <!-- Investment Card 3 -->
+                <div class="investment-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img class="w-full h-40 object-cover" src="/img/516b8c83f7e7070af09ec72f4e3dfd4a.jpg" alt="Chip">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-800">Laptops-1 (0/30)</h3>
+                        <p class="text-sm text-gray-600">Day Income: ₹2392</p>
+                        <p class="text-sm text-gray-600">Earnings Days: 49 Days</p>
+                        <p class="text-sm text-gray-600">Total Income: ₹117208</p>
+                        <div class="investment-amount text-sm text-blue-800 font-semibold my-2">Invest Amount: ₹5980.00</div>
+                        <button
+                            class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                            Invest Now
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+        
 
 
     </div>
@@ -114,7 +152,7 @@
     <div id="navbar"></div>
     <script src="/fileload.js"></script>
     <script src="/app.js"></script>
-    
+
 
 </body>
 

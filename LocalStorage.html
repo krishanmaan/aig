@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        #localStorageData {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .btn {
+            margin: 10px 0;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>LocalStorage Viewer</h1>
+    <p>Yeh page aapke browser ki localStorage ka data dikhata hai.</p>
+    <button class="btn" onclick="refreshData()">Refresh Data</button>
+    <button class="btn" style="background-color: red;" onclick="clearLocalStorage()">Clear LocalStorage</button>
+
+    <div id="localStorageData">
+        <!-- LocalStorage data yahan dikhega -->
+    </div>
+
+    <script>
+        // Function to refresh and display localStorage data
+        function refreshData() {
+            const localStorageData = document.getElementById("localStorageData");
+            localStorageData.innerHTML = ""; // Clear existing data
+
+            if (localStorage.length === 0) {
+                localStorageData.textContent = "LocalStorage is empty.";
+                return;
+            }
+
+            const ul = document.createElement("ul");
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+
+                const li = document.createElement("li");
+                li.textContent = `${key}: ${value}`;
+                ul.appendChild(li);
+            }
+            localStorageData.appendChild(ul);
+        }
+
+        // Function to clear localStorage
+        function clearLocalStorage() {
+            if (confirm("Kya aap sach mein localStorage clear karna chahte hain?")) {
+                localStorage.clear();
+                refreshData();
+                alert("LocalStorage clear kar diya gaya.");
+            }
+        }
+
+        // Automatically refresh data on page load
+        window.onload = refreshData;
+    </script>
+
+</body>
+</html>

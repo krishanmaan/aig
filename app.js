@@ -9,83 +9,82 @@ const firebaseConfig = {
     appId: "1:425731172688:web:c2a151a7beb32220d4e455"
 };
 
-// Initialize Firebase application
+// Firebase app initialize karte hain
 firebase.initializeApp(firebaseConfig);
 
-// Initialize Firebase Authentication and Database services
+// Firebase Authentication aur Database services ko initialize karte hain
 const auth = firebase.auth();
 const database = firebase.database();
 
-
-
-// Event listener to check localStorage for user data when the DOM is fully loaded
+// Jab DOM poora load ho jaaye tab localStorage check karte hain user data ke liye
 document.addEventListener("DOMContentLoaded", () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
-        showHomeScreen(userData);
+        showHomeScreen(userData); // Agar user data milta hai toh home screen dikhate hain
     }
 });
 
-// Listener to monitor authentication state changes (e.g., login or logout)
+// Auth state change ko listen karte hain (login ya logout hone par)
 auth.onAuthStateChanged(user => {
     if (user) {
+        // Database se user ka data fetch karte hain
         database.ref('users/' + user.uid).once('value').then(snapshot => {
             const userData = snapshot.val();
             if (userData) {
-                localStorage.setItem("user", JSON.stringify(userData));
-                showHomeScreen(userData);
+                localStorage.setItem("user", JSON.stringify(userData)); // User data ko localStorage mein save karte hain
+                showHomeScreen(userData); // Home screen dikhate hain
             } else {
-                console.error("No user data found.");
+                console.error("Koi user data nahi mila.");
             }
         }).catch(error => console.error("Error fetching user data:", error));
     } else {
-        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("loginForm").style.display = "block"; // Login form dikhate hain agar user login nahi hai
     }
 });
 
-
-// Function to log in a user with email and password
+// Function: User ko login karne ke liye
 function loginUser() {
-    const email = document.getElementById("email").value; // Get email input
-    const password = document.getElementById("password").value; // Get password input
+    const email = document.getElementById("email").value; // Email input lete hain
+    const password = document.getElementById("password").value; // Password input lete hain
 
-    // Attempt to sign in the user using Firebase Authentication
+    // Firebase Authentication ka use karke user ko login karte hain
     auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-            localStorage.setItem("user", JSON.stringify(userCredential.user));
-            window.location.href = "/home.html";
-        })
-        .catch(error => alert(error.message));
+            localStorage.setItem("user", JSON.stringify(userCredential.user)); // User data localStorage mein save karte hain
+            window.location.href = "/home.html"; // Home page par redirect karte hain
+            alert("login Successful ! ") 
+        }).catch(err => alert(err.message)); // Error agar login fail ho
 }
 
-// Function to sign up a new user with required details
+// Function: Naya user sign up karne ke liye
 function signUpUser() {
-    const name = document.getElementById("name").value; // User's name
-    const email = document.getElementById("signUpEmail").value; // User's email
-    const phone = document.getElementById("phone").value; // User's phone number
-    const invitationCode = document.getElementById("invitationCode").value; // Optional invitation code
-    const password = document.getElementById("signUpPassword").value; // User's password
+    const name = document.getElementById("name").value; // User ka naam lete hain
+    const email = document.getElementById("signUpEmail").value; // User ka email lete hain
+    const phone = document.getElementById("phone").value; // Phone number lete hain
+    const invitationCode = document.getElementById("invitationCode").value; // Invitation code (optional)
+    const password = document.getElementById("signUpPassword").value; // Password lete hain
 
-    // Validate phone number length
+    // Phone number validate karte hain
     if (phone.length < 10) {
-        alert("Invalid phone number. Please provide a valid phone number.");
+        alert("Invalid phone number. Sahi phone number dijiye.");
         return;
     }
 
-    const phoneSuffix = phone.slice(-4); // Extract the last 4 digits of the phone number
+    const phoneSuffix = phone.slice(-4); // Phone number ke last 4 digits nikalte hain
 
-    // Attempt to create a new user in Firebase Authentication
+    // Firebase ka use karke user create karte hain
     auth.createUserWithEmailAndPassword(email, password).then(userCredential => {
         const userId = userCredential.user.uid; // Firebase user ID
-        const userRef = database.ref('users/' + userId); // Reference to user's data in Firebase Database
+        const userRef = database.ref('users/' + userId); // User ke data ka reference
 
-        // Generate a unique user ID based on phone number suffix
+        // Unique ID generate karte hain phone suffix se
         generateUniqueID(phoneSuffix).then(randomID => {
-            // Save the new user's data to Firebase Realtime Database
+            // Naye user ka data Firebase Database mein save karte hain
             const newUserData = {
                 name,
                 email,
                 phone,
+                team: [],  // Team ko empty array se initialize kar rahe hain
                 invitationCode,
                 userID: randomID, // Unique ID
                 balance: 0 // Initial balance
@@ -93,26 +92,34 @@ function signUpUser() {
 
             userRef.set(newUserData);
 
-            // If an invitation code is provided, reward the inviter and update their team
+            // Agar invitation code hai toh inviter ka balance update karte hain aur team mein naye user ko add karte hain
             if (invitationCode) {
                 database.ref('users').orderByChild('userID').equalTo(parseInt(invitationCode)).once('value').then(snapshot => {
                     if (snapshot.exists()) {
-                        const inviterKey = Object.keys(snapshot.val())[0]; // Get the inviter's database key
+                        const inviterKey = Object.keys(snapshot.val())[0]; // Inviter ka database key nikalte hain
                         const inviterRef = database.ref('users/' + inviterKey);
 
-                        // Update inviter's balance
+                        // Inviter ka balance update karte hain
                         inviterRef.child('balance').transaction(balance => (balance || 0) + 10);
 
-                        // Add new user's name and userID to the inviter's team list
-                        inviterRef.child('team').push({
-                            name: name,
-                            userID: randomID // Save only minimal data
-                        });
+                        // Fetch inviter's team to add new user
+                        inviterRef.child('team').once('value').then(teamSnapshot => {
+                            let team = teamSnapshot.val() || []; // Agar team exist karti hai toh use fetch karenge, warna empty array
+
+                            // Inviter ke team list mein naye user ka naam aur ID add karte hain
+                            team.push({
+                                name: name,
+                                userID: randomID
+                            });
+
+                            // Updated team ko database me save karte hain
+                            inviterRef.child('team').set(team);
+                        }).catch(error => console.error("Error fetching inviter's team:", error));
                     }
-                });
+                }).catch(error => console.error("Error fetching inviter:", error));
             }
 
-            alert("Sign-Up Successful!");
+            alert("Sign-Up Successful!"); // Signup success ka message dikhate hain
 
             localStorage.setItem("user", JSON.stringify(userCredential.user));
             window.location.href = "/home.html";
@@ -122,36 +129,33 @@ function signUpUser() {
 }
 
 
-// Function to generate a unique ID for the user
+// Function: Unique ID generate karne ke liye
 function generateUniqueID(phoneSuffix) {
     return new Promise((resolve, reject) => {
-        const randomFourDigits = () => Math.floor(1000 + Math.random() * 9000); // Generate 4 random digits
-        const checkIDUniqueness = id => database.ref('users').orderByChild('userID').equalTo(id).once('value'); // Check if ID is unique
+        const randomFourDigits = () => Math.floor(1000 + Math.random() * 9000); // 4 random digits generate karte hain
+        const checkIDUniqueness = id => database.ref('users').orderByChild('userID').equalTo(id).once('value'); // ID unique hai ya nahi check karte hain
 
         const tryGenerateID = () => {
-            const randomID = parseInt(phoneSuffix + randomFourDigits()); // Combine phone suffix with random digits
+            const randomID = parseInt(phoneSuffix + randomFourDigits()); // Phone suffix aur random digits combine karte hain
             checkIDUniqueness(randomID).then(snapshot => {
                 if (snapshot.exists()) {
-                    // If ID is not unique, retry
+                    // Agar ID unique nahi hai toh retry karte hain
                     tryGenerateID();
                 } else {
-                    // ID is unique
+                    // Agar ID unique hai toh resolve karte hain
                     resolve(randomID);
                 }
             }).catch(reject);
         };
 
-        tryGenerateID(); // Start the ID generation process
+        tryGenerateID(); // ID generation start karte hain
     });
 }
 
-// Function to display the home screen with user data
+// Function: Home screen par user ka data dikhane ke liye
 function showHomeScreen(userData) {
-    console.log("Displaying user data:", userData);
-    document.getElementById("userID").textContent = userData.userID || "N/A";
-    document.getElementById("name").textContent = userData.name || "Guest";
-    document.getElementById("balance").textContent = userData.balance !== undefined ? userData.balance : "0";
+    console.log("User data dikhaya jaa raha hai:", userData);
+    document.getElementById("userID").textContent = userData.userID || "N/A"; // User ID dikhate hain
+    document.getElementById("name").textContent = userData.name || "Guest"; // User name dikhate hain
+    document.getElementById("balance").textContent = userData.balance !== undefined ? userData.balance : "0"; // Balance dikhate hain
 }
-
-
-

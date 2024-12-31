@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIG</title>
+    <title>American Communications Network, Inc.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -20,20 +20,81 @@
     </style>
 </head>
 
-<body class="bg-blue-900 flex items-center justify-center h-screen">
-    <div class="text-center">
-        <h1 class="text-4xl text-cyan-400 font-bold mb-4">Qualcomm</h1>
-        <p class="text-white text-lg mb-8">Welcome to use</p>
-        <div class="space-y-4 ">
-            <a href="/user/login.html">
-                <button class="bg-white text-blue-900 text-lg py-2 px-8 rounded-full shadow-lg">Log in</button>
-            </a>
-            <a href="/user/signUp.html">
-                <button class="bg-gradient-to-r from-blue-300 to-blue-500 text-white text-lg py-2 px-8 rounded-full shadow-lg">Sign in</button>
-            </a>
-        </div>
+<body class="bg-blue-900 flex items-center justify-center h-screen mx-2">
+    
+    <div id="loginForm" class="container mx-auto max-w-md p-6 bg-white shadow-md rounded-md mt-10">
+        <h1 class="text-2xl font-bold text-center mb-4">Welcome to ACN</h1>
+        <h2 class="text-xl font-semibold text-center mb-6">Login</h2>
+        <input type="email" id="email" placeholder="Email" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="password" id="password" placeholder="Password" required
+            class="w-full p-2 border border-gray-300 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button class="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            onclick="loginUser()">Login</button>
+        <p class="text-center mt-4">Don't have an account?
+            <a href="/user/signUp.html" class="text-blue-500 underline">SignUp</a>
+        </p>
+       
     </div>
-    <script src="app.js" ></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        // Firebase configuration remains the same
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIFf7NksmB1taEdBfpNKEeyOmRPJEQSv8",
+            authDomain: "aig-1b395.firebaseapp.com",
+            databaseURL: "https://aig-1b395-default-rtdb.firebaseio.com",
+            projectId: "aig-1b395",
+            storageBucket: "aig-1b395.appspot.com",
+            messagingSenderId: "425731172688",
+            appId: "1:425731172688:web:c2a151a7beb32220d4e455"
+        };
+    
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+    
+        // On page load, check if user is logged in
+        document.addEventListener("DOMContentLoaded", () => {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            if (isLoggedIn === "true") {
+                window.location.href = "/home.html"; // Redirect to home if logged in
+            }
+        });
+    
+        // Function: Login the user
+        function loginUser() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+    
+            auth.signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    // Save login status in localStorage
+                    localStorage.setItem("isLoggedIn", "true");
+    
+                    // Save user data in localStorage
+                    localStorage.setItem("user", JSON.stringify(userCredential.user));
+    
+                    // Redirect to home page
+                    alert("Login Successful!");
+                    window.location.href = "/home.html";
+                })
+                .catch(err => alert(err.message));
+        }
+    
+        // Auth state change listener to handle edge cases
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                localStorage.setItem("isLoggedIn", "true");
+                window.location.href = "/home.html";
+            }
+        });
+    </script>
+    
 </body>
 
 </html>
